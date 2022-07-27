@@ -2,14 +2,14 @@ const ship = require('../src/shipFactory');
 
 test('test ship length', () => {
   const builtShip = ship(5, 'Battleship');
-  expect(builtShip.lengthStatus).toBe(5);
+  expect(builtShip.lengthUpdate()).toBe(5);
 },
 );
 
 test('test ship hit to reduce length', ()=> {
   const builtShip = ship(5, 'Battleship');
   builtShip.hit();
-  expect(builtShip.lengthStatus).toBe(4);
+  expect(builtShip.lengthUpdate()).toBe(4);
 });
 
 test('test ship sinking', ()=> {

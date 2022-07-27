@@ -16,8 +16,9 @@ const ship = (length, name, align) => {
     }
     return isSink;
   };
-  return {hit, get lengthStatus() {
+  const lengthUpdate = () => {
     return lengthStatus;
-  }, shipName, sinkChecker, alignment};
+  };
+  return {hit, lengthUpdate, shipName, sinkChecker, alignment};
 };
 module.exports = ship;
