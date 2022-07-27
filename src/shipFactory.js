@@ -1,11 +1,11 @@
-const ship = (length, name, sink) => {
+const ship = (length, name, align) => {
   const lengthCounter=length;
   const shipName=name;
-  const isSink=sink;
   let lengthStatus= lengthCounter;
+  const alignment = align;
 
   const hit = () => {
-    lengthStatus=lengthStatus -1;
+    lengthStatus-=1;
     sinkChecker();
   };
 
@@ -16,6 +16,8 @@ const ship = (length, name, sink) => {
     }
     return isSink;
   };
-  return {lengthStatus, shipName, isSink, hit, sinkChecker};
+  return {hit, get lengthStatus() {
+    return lengthStatus;
+  }, shipName, sinkChecker, alignment};
 };
 module.exports = ship;
