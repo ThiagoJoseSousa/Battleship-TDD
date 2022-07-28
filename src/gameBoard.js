@@ -113,8 +113,15 @@ const gameBoards = () => {
   }; // Ships must be created inside gameboard, or the attacks wont work! position only would work if the ships were returned also.
   // It's the scope magic.
 
+  const allSunk= () => {
+    if (builtShip.lengthStatus ===0) { // +builtShip1.lengtStatus + builtShip2.lengtStatus + builtShip3.lengtStatus + builtShip4.lengtStatus
+      return true;
+    } else {
+      return false;
+    }
+  };
 
-  return {getBoard, positionShip, spaceChecker, checkForShips, receiveAttack, builtShipReturn};
+  return {getBoard, positionShip, spaceChecker, checkForShips, receiveAttack, builtShipReturn, allSunk};
 }
 ;
 

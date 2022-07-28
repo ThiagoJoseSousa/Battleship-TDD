@@ -33,5 +33,12 @@ test('the ship received a hit', ()=> {
 });
 
 test('did all their ships sunk?', ()=> {
-
+  const playerBoard=gameBoards();
+  playerBoard.receiveAttack( 4, 4);
+  playerBoard.receiveAttack( 4, 5);
+  playerBoard.receiveAttack( 4, 6);
+  playerBoard.receiveAttack( 4, 7);
+  playerBoard.receiveAttack( 4, 8);
+  const sunkinformation=playerBoard.allSunk();
+  expect(sunkinformation).toBe(true);
 });

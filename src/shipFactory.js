@@ -19,6 +19,6 @@ const ship = (length, namer) => {
   const lengthUpdate = () => {
     return lengthStatus;
   };
-  return {hit, lengthUpdate, name, sinkChecker, alignment};
+  return {hit, lengthUpdate, name, sinkChecker};
 };
 module.exports = ship;
