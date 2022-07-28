@@ -58,7 +58,18 @@ const gameBoards = () => {
       }
     }
   };
-  return {getBoard, positionShip, spaceChecker, checkForShips};
+  const receiveAttack= (x, y) => {
+    if (board[x][y]==='O') {
+      board[x][y]='hit';
+      board[x][y].hit();
+    } else if (board[x][y]==='') {
+      board[x][y]='miss';
+    } else if (board[x][y]==='miss') {
+      // nothing
+    }
+  };
+
+  return {getBoard, positionShip, spaceChecker, checkForShips, receiveAttack};
 }
 ;
 
