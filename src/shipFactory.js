@@ -1,8 +1,8 @@
-const ship = (length, name, align) => {
+const ship = (length, namer) => {
   const lengthCounter=length;
-  const shipName=name;
+  const name=namer;
   let lengthStatus= lengthCounter;
-  const alignment = align;
+
 
   const hit = () => {
     lengthStatus-=1;
@@ -19,6 +19,6 @@ const ship = (length, name, align) => {
   const lengthUpdate = () => {
     return lengthStatus;
   };
-  return {hit, lengthUpdate, shipName, sinkChecker, alignment};
+  return {hit, lengthUpdate, name, sinkChecker, alignment};
 };
 module.exports = ship;

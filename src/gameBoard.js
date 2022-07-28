@@ -1,5 +1,6 @@
 const ship= require('./shipFactory');
 
+
 const gameBoards = () => {
   const board = [new Array(10), new Array(10), new Array(10), new Array(10), new Array(10),
     new Array(10), new Array(10), new Array(10), new Array(10), new Array(10)];
@@ -53,23 +54,67 @@ const gameBoards = () => {
     const length= builtShip.lengthStatus;
     if (newYPosition+length<10 && checkForShips(length, xPlace, newYPosition)) {
       for (let i = 0; i < length; i++) {
-        board[xPlace][newYPosition] = 'O';
+        switch (builtShip.name) {
+          case 'Carrier':
+            board[xPlace][newYPosition] = 'A';
+            break;
+          case 'Battleship':
+            board[xPlace][newYPosition] = 'B';
+            break;
+          case 'Cruiser':
+            board[xPlace][newYPosition] = 'C';
+            break;
+          case 'Submarine':
+            board[xPlace][newYPosition] = 'D';
+            break;
+          case 'Destroyer':
+            board[xPlace][newYPosition] = 'E';
+            break;
+        }
         newYPosition++;
       }
     }
   };
-  const receiveAttack= (x, y) => {
-    if (board[x][y]==='O') {
-      board[x][y]='hit';
-      board[x][y].hit();
-    } else if (board[x][y]==='') {
-      board[x][y]='miss';
-    } else if (board[x][y]==='miss') {
-      // nothing
+  const receiveAttack= ( x, y) => {
+    const item= board[x][y];
+    switch (item) {
+      case 'A':
+        board[x][y]= 'hit';
+        builtShip.lengthStatus -=1;
+        break;
+      case 'B':
+        board[x][y]= 'hit';
+        builtShip1.lengthStatus -=1;
+        break;
+      case 'C':
+        board[x][y]= 'hit';
+        builtShip2.lengthStatus -=1;
+
+        break;
+      case 'D':
+        board[x][y]= 'hit';
+        builtShip3.lengthStatus -=1;
+        break;
+      case 'E':
+        board[x][y]= 'hit';
+        builtShip4.lengthStatus -=1;
+        break;
+      case '':
+        board[x][y]= 'miss';
+        break;
+      case 'miss':
+        break;
     }
   };
+  const builtShip = {name: 'Carrier', lengthStatus: 5};
+  positionShip(builtShip, 4, 4);
+  builtShipReturn= ()=> {
+    return builtShip;
+  }; // Ships must be created inside gameboard, or the attacks wont work! position only would work if the ships were returned also.
+  // It's the scope magic.
 
-  return {getBoard, positionShip, spaceChecker, checkForShips, receiveAttack};
+
+  return {getBoard, positionShip, spaceChecker, checkForShips, receiveAttack, builtShipReturn};
 }
 ;
 
