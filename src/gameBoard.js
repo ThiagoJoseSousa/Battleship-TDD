@@ -9,32 +9,33 @@ const gameBoards = () => {
     return board;
   };
 
+
   const spaceChecker= (builtShip, xPlace, yPlace) => {
     const x= xPlace;
     const y= yPlace;
     const length=builtShip.lengthStatus;
 
     let canBePlaced = false;
-    if (length+y<11 && checkForShips(builtShip, xPlace, yPlace)) {
+    if (length+y<10 && checkForShips(builtShip, xPlace, yPlace)) {
       canBePlaced=true;
     }
     return canBePlaced;
   };
 
 
-  const checkForShips =(builtShip, xPlace, yPlace) =>{
+  const checkForShips =(lengthShip, xPlace, yPlace) =>{
     const x=xPlace;
     let y=yPlace;
-    const length=builtShip.lengthStatus;
+    const length=lengthShip;
     let canBePlaced= false;
     for (let i=0; i<length; i++) {
       if (board[x][y]==='') {
-        return canBePlaced=true;
+        canBePlaced=true;
       } else {
         canBePlaced=false;
         break;
       }
-      y++;
+      ++y;
     }
     return canBePlaced;
   };
@@ -47,7 +48,15 @@ const gameBoards = () => {
 
 
   const positionShip= (builtShip, x, y) =>{
-    board[x][y]='O';
+    const xPlace=x;
+    let newYPosition = y;
+    const length= builtShip.lengthStatus;
+    if (newYPosition+length<10 && checkForShips(length, xPlace, newYPosition)) {
+      for (let i = 0; i < length; i++) {
+        board[xPlace][newYPosition] = 'O';
+        newYPosition++;
+      }
+    }
   };
   return {getBoard, positionShip, spaceChecker, checkForShips};
 }
