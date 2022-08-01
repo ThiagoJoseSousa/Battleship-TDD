@@ -19,11 +19,10 @@ test.skip('computer makes random plays', ()=> {
   expect(console.log).toHaveBeenLastCalledWith('miss');
 });
 
-test.skip('if legal move didnt happen, turn doesnt change', ()=> {
+test('if legal move didnt happen, turn doesnt change', ()=> {
   const computer = playerFactory('computer');
   const player=playerFactory('player');
+  player.attack(4, 4, computer);
 
-  expect(player.attack(10, 10, computer)).toBe(false);
+  expect(player.attack(4, 4, computer)).toBe(undefined);
 });
-
-

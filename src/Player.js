@@ -3,7 +3,7 @@ const gameBoards= require('./gameBoard.js');
 const playerFactory= (newPlayer) => {
   const createBoard = gameBoards();
   const player=newPlayer;
-  const turnVariable=false;
+  let turnVariable=false;
 
 
   const attack= (x, y, oppositePlayer)=> { // oppositePlayer is an object
@@ -14,29 +14,45 @@ const playerFactory= (newPlayer) => {
       }
       turnVariable=true;
     } else if (player==='computer') {
-      const randomX= computerRandom(10);
-      const randomY= computerRandom(10);
+      const randomXIndex = computerRandom(XnumbersArray.length-1);
+      const randomXNumber = XnumbersArray[randomXIndex];
+      XnumbersArray.splice(randomXIndex, 1);
 
-      const validator=oppositePlayer.createBoard.receiveAttack(randomX, randomY);
-      while (validator ===false) {
-        randomX= computerRandom(10);
-        randomY= computerRandom(10);
-        validator=oppositePlayer.createBoard.receiveAttack(randomX, randomY);
-      }
-      // oppositeBoard = oppositePlayer.createBoard.getBoard();
-      // console.log(oppositeBoard[randomX][randomY]);
+      const randomYIndex = computerRandom(YnumbersArray.length-1);
+      const randomYNumber= computerRandom(randomYIndex.length-1);
+      YnumbersArray.splice(randomYIndex, 1);
+      oppositePlayer.createBoard.receiveAttack(randomXNumber, randomYNumber);
+
       turnVariable=false;
     }
+    // oppositeBoard = oppositePlayer.createBoard.getBoard();
+    // console.log(oppositeBoard[randomX][randomY]);
+
     return turnVariable;// attack will remember what turn is out of ifs.
-  }
-  ;
+  };
 
   // makes x/y variables random , and make a loop searching for '' elements
   const computerRandom = (max) => {
     return Math.floor(Math.random()*max);
   };
+  // below is test
+  function createArrayOfNumbers(end) {
+    const myArray = [];
+    for (let i = 0; i <= end; i++) {
+      myArray.push(i); // creates an array with the index equal to  its inside number
+    }
+    return myArray;
+  }
+  const XnumbersArray = createArrayOfNumbers(9); // used for computer to not repeat Its plays
+  const YnumbersArray = createArrayOfNumbers(9);
 
+  const returnX =() => {
+    return XnumbersArray;
+  };
+  const returnY =() => {
+    return YnumbersArray;
+  };
 
-  return {createBoard, attack};
+  return {createBoard, attack, returnX, returnY};
 };
 module.exports=playerFactory;
