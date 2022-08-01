@@ -73,7 +73,9 @@ const gameBoards = () => {
         }
         newYPosition++;
       }
-    }
+    } else {
+      return false;
+    };
   };
   const receiveAttack= ( x, y) => {
     const item= board[x][y];
@@ -105,22 +107,54 @@ const gameBoards = () => {
       default: return false;
     }
   };
-  const builtShip = {name: 'Carrier', lengthStatus: 5};
-  positionShip(builtShip, 4, 4);
+  const builtShip = ship(Carrier, 5);
+  const builtShip1 = ship(Battleship, 4);
+  const builtShip2 = ship(Cruiser, 3);
+  const builtShip3 = ship(Submarine, 3);
+  const builtShip4 = ship(Destroyer, 2);
+
+  // IM REALLY LAZY TO RANDOMIZE x/y for each NOW, SORRY
+  const setShipPosition= (shipObject) => {
+    let x = Math.floor(Math.random()*10);
+    let y = Math.floor(Math.random()*10);
+    while (positionShip(shipObject, x, y)===false) {
+      x = Math.floor(Math.random()*10);
+      y = Math.floor(Math.random()*10);
+    }
+    // let x = random number, while positionShip is a failure, find another number.
+  };
+  setShipPosition(builtShip);
+  setShipPosition(builtShip1);
+  setShipPosition(builtShip2);
+  setShipPosition(builtShip3);
+  setShipPosition(builtShip4);
+
   builtShipReturn= ()=> {
     return builtShip;
+  };
+  builtShip1Return= ()=> {
+    return builtShip1;
+  };
+  builtShip2Return= ()=> {
+    return builtShip2;
+  };
+  builtShip3Return= ()=> {
+    return builtShip3;
+  };
+  builtShip4Return= ()=> {
+    return builtShip4;
   }; // Ships must be created inside gameboard, or the attacks wont work! position only would work if the ships were returned also.
   // It's the scope magic.
 
   const allSunk= () => {
-    if (builtShip.lengthStatus ===0) { // +builtShip1.lengtStatus + builtShip2.lengtStatus + builtShip3.lengtStatus + builtShip4.lengtStatus
+    if (builtShip.lengthStatus+builtShip1.lengthStatus + builtShip2.lengthStatus + builtShip3.lengthStatus + builtShip4.lengthStatus ===0) {
       return true;
     } else {
       return false;
     }
   };
 
-  return {getBoard, positionShip, spaceChecker, checkForShips, receiveAttack, builtShipReturn, allSunk};
+  return {getBoard, positionShip, spaceChecker, checkForShips, receiveAttack, builtShipReturn, allSunk, builtShip1Return, builtShip2Return, builtShip3Return, builtShip4Return};
 }
 ;
 
