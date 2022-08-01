@@ -11,7 +11,7 @@ const gameBoards = () => {
   };
 
 
-  const spaceChecker= (builtShip, xPlace, yPlace) => {
+  const spaceChecker= (builtShip, xPlace, yPlace) => { // used just for positioning ships
     const x= xPlace;
     const y= yPlace;
     const length=builtShip.lengthStatus;
@@ -102,8 +102,7 @@ const gameBoards = () => {
       case '':
         board[x][y]= 'miss';
         break;
-      case 'miss':
-        break;
+      default: return false;
     }
   };
   const builtShip = {name: 'Carrier', lengthStatus: 5};
