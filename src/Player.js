@@ -36,6 +36,7 @@ const playerFactory= (newPlayer) => {
     return Math.floor(Math.random()*max);
   };
   // below is test
+
   function createArrayOfNumbers(end) {
     const myArray = [];
     for (let i = 0; i <= end; i++) {
@@ -52,7 +53,12 @@ const playerFactory= (newPlayer) => {
   const returnY =() => {
     return YnumbersArray;
   };
-
-  return {createBoard, attack, returnX, returnY};
+  const returnTurn = () => {
+    if (createBoard.allSunk()===true) {
+      turnVariable='Game has ended';
+    }
+    return turnVariable;
+  };
+  return {createBoard, attack, returnX, returnY, returnTurn};
 };
 module.exports=playerFactory;

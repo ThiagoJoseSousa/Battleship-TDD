@@ -147,14 +147,15 @@ const gameBoards = () => {
   // It's the scope magic.
 
   const allSunk= () => {
-    if (builtShip.lengthStatus+builtShip1.lengthStatus + builtShip2.lengthStatus + builtShip3.lengthStatus + builtShip4.lengthStatus ===0) {
+    if ( builtShip.lengthStatus===0 && builtShip1.lengthStatus===0 && builtShip2.lengthStatus===0 && builtShip3.lengthStatus===0 && builtShip4.lengthStatus===0 ) {
       return true;
     } else {
       return false;
     }
   };
 
-  return {getBoard, positionShip, spaceChecker, checkForShips, receiveAttack, builtShipReturn, allSunk, builtShip1Return, builtShip2Return, builtShip3Return, builtShip4Return};
+
+  return {getBoard, positionShip, spaceChecker, checkForShips, receiveAttack, allSunk, builtShipReturn, builtShip1Return, builtShip2Return, builtShip3Return, builtShip4Return};
 }
 ;
 
