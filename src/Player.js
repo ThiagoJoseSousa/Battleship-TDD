@@ -1,7 +1,7 @@
-const gameBoards= require('./gameBoard.js');
+const gameBoards= require('./gameBoard');
 
 const playerFactory= (newPlayer) => {
-  const createBoard = gameBoards();
+  // const createBoard = gameBoards();
   const player=newPlayer;
   let turnVariable=false;
 
@@ -27,8 +27,6 @@ const playerFactory= (newPlayer) => {
     }
     // oppositeBoard = oppositePlayer.createBoard.getBoard();
     // console.log(oppositeBoard[randomX][randomY]);
-
-    return turnVariable;// attack will remember what turn is out of ifs.
   };
 
   // makes x/y variables random , and make a loop searching for '' elements
@@ -57,8 +55,8 @@ const playerFactory= (newPlayer) => {
     if (createBoard.allSunk()===true) {
       turnVariable='Game has ended';
     }
-    return turnVariable;
   };
-  return {createBoard, attack, returnX, returnY, returnTurn};
+  return {// createBoard,
+    attack, returnX, returnY, returnTurn};
 };
 module.exports=playerFactory;

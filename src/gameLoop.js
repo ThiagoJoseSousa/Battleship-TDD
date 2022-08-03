@@ -1,11 +1,13 @@
 const playerFactory= require('./Player');
+const createGameboard= require('./dom');
 
 const gameLoop = () => {
   const computer = playerFactory('computer');
   const player=playerFactory('player');
 
-  // while turnVariable===false; player attacks, else computerTurn.
-  // allSunk on turnVariable grants It ends
+  createGameboard(player, computer);
+  createGameboard(computer, player);
 };
+gameLoop();
 
 module.exports = gameLoop;

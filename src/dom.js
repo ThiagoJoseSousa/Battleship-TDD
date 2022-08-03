@@ -1,22 +1,21 @@
-const gameLoop = require('./gameLoop');
-const playerFactory= require('./Player');
+const gameLoop = require('./gameLoop').default;
+const playerFactory= require('./Player').default;
 
 const createGameboard = (playerObj, enemyObj) => {
   const boardDiv= document.getElementById(playerObj.player+'Div');
-  boardDiv=
 
-  const createGrid = ()=> {
+  function createGrid() {
     playerObj.createBoard.board.forEach((element) => {
       const x = element;
-      const y=0;
-      playerObj.createBoard.board[x].forEach((element)=>{
-        y=element;
-        const coordinate= document.createElement('div'); // creates a div for each x/y
-        coordinate.dataset.x=x;
-        coordinate.dataset.y=y;
-        y= y+1;
+      const y = 0;
+      playerObj.createBoard.board[x].forEach((element) => {
+        y = element;
+        const coordinate = document.createElement('div'); // creates a div for each x/y
+        coordinate.dataset.x = x;
+        coordinate.dataset.y = y;
+        y = y + 1;
 
-        if (enemyObj.player==='player') {
+        if (enemyObj.player === 'player') {
           coordinate.addEventListener(click, receiveClick(e));
         }
         boardDiv.appendChild(coordinate);
@@ -33,11 +32,12 @@ const createGameboard = (playerObj, enemyObj) => {
       // createGameboard(playerObj, enemyObj); updates the board
     }
   };
-if (enemyObj.player==='player' && enemyObj.returnTurn()===true) {
-    computer.attack(4,4,enemyObj)
-};
-    // while (playerObj.returnTurn()===true) {
-    //  computer.attack(4, 4, player);
-    // }
+  if (enemyObj.player==='player' && enemyObj.returnTurn()===true &&
+playerObj.returnTurn()!=='Game has ended') {
+    playerObj.attack(4, 4, enemyObj);
+  };
+  createGrid();
+  return createGrid;
 };
 
+module.exports= createGameboard;

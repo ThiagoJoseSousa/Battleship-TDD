@@ -10,6 +10,12 @@ const gameBoards = () => {
     return board;
   };
 
+  const builtShip = ship('Carrier', 5);
+  const builtShip1 = ship('Battleship', 4);
+  const builtShip2 = ship('Cruiser', 3);
+  const builtShip3 = ship('Submarine', 3);
+  const builtShip4 = ship('Destroyer', 2);
+
 
   const spaceChecker= (builtShip, xPlace, yPlace) => { // used just for positioning ships
     const x= xPlace;
@@ -20,39 +26,45 @@ const gameBoards = () => {
     if (length+y<10 && checkForShips(builtShip, xPlace, yPlace)) {
       canBePlaced=true;
     }
-    return canBePlaced;
+
+    const getCanBePlaced= ()=> {
+      return canBePlaced;
+    };
+    return getCanBePlaced;
   };
 
-
-  const checkForShips =(lengthShip, xPlace, yPlace) =>{
-    const x=xPlace;
-    let y=yPlace;
-    const length=lengthShip;
-    let canBePlaced= false;
-    for (let i=0; i<length; i++) {
-      if (board[x][y]==='') {
-        canBePlaced=true;
-      } else {
-        canBePlaced=false;
-        break;
-      }
-      ++y;
-    }
-    return canBePlaced;
-  };
 
   for (let row=0; row<board.length; row++) { // undefined cant be referenced
     for (let column=0; column<board[row].length; column++) {
       board[row][column] = '';
     }
   } // the outter loop wont end until the inner ends
+  const checkForShips =(builtShip, xPlace, yPlace) =>{
+    const x=xPlace;
+    let y=yPlace;
+    const length=builtShip.lengthStatus;
+    let canBePlaced= false;
+    for (let i=0; i<length; i++) {
+      if (board[x][y]==='') {
+        canBePlaced=true;
+      } else {
+        canBePlaced=false;
+      }
+      ++y;
+    }
+    const getCanBePlaced=()=> {
+      return canBePlaced;
+    };
+    return getCanBePlaced;
+  };
 
-
+  // CHECK FOR SHIP IS ALWAYS RETURNING FALSE
   const positionShip= (builtShip, x, y) =>{
     const xPlace=x;
     let newYPosition = y;
     const length= builtShip.lengthStatus;
-    if (newYPosition+length<10 && checkForShips(length, xPlace, newYPosition)) {
+    const checker= checkForShips(builtShip, xPlace, newYPosition);
+    if (newYPosition+length<10 && checker.getCanBePlaced()===true) {
       for (let i = 0; i < length; i++) {
         switch (builtShip.name) {
           case 'Carrier':
@@ -73,6 +85,7 @@ const gameBoards = () => {
         }
         newYPosition++;
       }
+      return true;
     } else {
       return false;
     };
@@ -107,19 +120,15 @@ const gameBoards = () => {
       default: return false;
     }
   };
-  const builtShip = ship(Carrier, 5);
-  const builtShip1 = ship(Battleship, 4);
-  const builtShip2 = ship(Cruiser, 3);
-  const builtShip3 = ship(Submarine, 3);
-  const builtShip4 = ship(Destroyer, 2);
 
-  // IM REALLY LAZY TO RANDOMIZE x/y for each NOW, SORRY
   const setShipPosition= (shipObject) => {
     let x = Math.floor(Math.random()*10);
     let y = Math.floor(Math.random()*10);
-    while (positionShip(shipObject, x, y)===false) {
+    let checker = positionShip(shipObject, x, y);
+    while (checker===false) {
       x = Math.floor(Math.random()*10);
       y = Math.floor(Math.random()*10);
+      checker= positionShip(shipObject, x, y);
     }
     // let x = random number, while positionShip is a failure, find another number.
   };

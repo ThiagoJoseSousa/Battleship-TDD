@@ -1,6 +1,6 @@
 const playerFactory = require('../src/Player.js');
 
-test('player can attack a coordinate', ()=> {
+test.skip('player can attack a coordinate', ()=> {
   const player=playerFactory('player');
   const computer = playerFactory('computer');
   player.attack(4, 4, computer);
@@ -19,10 +19,17 @@ test.skip('computer makes random plays', ()=> {
   expect(console.log).toHaveBeenLastCalledWith('miss');
 });
 
-test('if legal move didnt happen, turn doesnt change', ()=> {
+test.skip('if legal move didnt happen, turn doesnt change', ()=> {
   const computer = playerFactory('computer');
   const player=playerFactory('player');
   player.attack(4, 4, computer);
 
   expect(player.attack(4, 4, computer)).toBe(undefined);
+});
+
+test('if returnTurn==="Game has ended" function ends', ()=> {
+  const computer = playerFactory('computer');
+  const player=playerFactory('player');
+  computer.turnVariable='Game has ended';
+  expect(computer.turnVariable).toMatch('Game has ended');
 });

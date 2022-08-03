@@ -1,6 +1,6 @@
 const ship = require('../src/shipFactory');
 
-test.skip('test ship length', () => {
+test('test ship length', () => {
   const builtShip = ship(5, 'Battleship');
   expect(builtShip.lengthUpdate()).toBe(5);
 },
