@@ -1,9 +1,9 @@
-const playerFactory= require('./Player');
-const createGameboard= require('./dom');
+const playerFactory= require('./Player.js');
+const createGameboard= require('./dom.js');
 
 const gameLoop = () => {
-  const computer = playerFactory('computer');
   const player=playerFactory('player');
+  const computer = playerFactory('computer');
 
   createGameboard(player, computer);
   createGameboard(computer, player);

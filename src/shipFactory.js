@@ -1,9 +1,8 @@
 // I forgot that was using modules, so I remade hit and sinKChecker on gameBoard
 // those two below are useless.
 const ship = (length, namer) => {
-  const lengthCounter=length;
   const name=namer;
-  let lengthStatus= lengthCounter;
+  let lengthStatus= length;
 
 
   const hit = () => {
@@ -21,6 +20,6 @@ const ship = (length, namer) => {
   const lengthUpdate = () => {
     return lengthStatus;
   };
-  return {hit, lengthUpdate, name, sinkChecker};
+  return {hit, lengthStatus, lengthUpdate, name, sinkChecker};
 };
 module.exports = ship;

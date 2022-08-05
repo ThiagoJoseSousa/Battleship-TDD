@@ -13,12 +13,13 @@ body{
 }
 
 #computerDiv {
+    width: 500px;
     height:500px;
 }
 
-.square {
+.squares {
     height:30px;
     width:30px;
-    color:grey
+    background-color: rgb(24, 24, 24);
 }
 

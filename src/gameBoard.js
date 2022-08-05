@@ -1,4 +1,4 @@
-const ship= require('./shipFactory');
+const ship= require('./shipFactory.js');
 
 
 const gameBoards = () => {
@@ -10,14 +10,14 @@ const gameBoards = () => {
     return board;
   };
 
-  const builtShip = ship('Carrier', 5);
-  const builtShip1 = ship('Battleship', 4);
-  const builtShip2 = ship('Cruiser', 3);
-  const builtShip3 = ship('Submarine', 3);
-  const builtShip4 = ship('Destroyer', 2);
+  const builtShip = ship( 5, 'Carrier');
+  const builtShip1 = ship( 4, 'Battleship');
+  const builtShip2 = ship( 3, 'Cruiser');
+  const builtShip3 = ship( 3, 'Submarine');
+  const builtShip4 = ship( 2, 'Destroyer');
 
 
-  const spaceChecker= (builtShip, xPlace, yPlace) => { // used just for positioning ships
+  const spaceChecker= (builtShip, xPlace, yPlace) => { // used for nothing
     const x= xPlace;
     const y= yPlace;
     const length=builtShip.lengthStatus;
@@ -64,7 +64,7 @@ const gameBoards = () => {
     let newYPosition = y;
     const length= builtShip.lengthStatus;
     const checker= checkForShips(builtShip, xPlace, newYPosition);
-    if (newYPosition+length<10 && checker.getCanBePlaced()===true) {
+    if (newYPosition+length<10 && checker()===true) {
       for (let i = 0; i < length; i++) {
         switch (builtShip.name) {
           case 'Carrier':
@@ -138,33 +138,19 @@ const gameBoards = () => {
   setShipPosition(builtShip3);
   setShipPosition(builtShip4);
 
-  builtShipReturn= ()=> {
-    return builtShip;
-  };
-  builtShip1Return= ()=> {
-    return builtShip1;
-  };
-  builtShip2Return= ()=> {
-    return builtShip2;
-  };
-  builtShip3Return= ()=> {
-    return builtShip3;
-  };
-  builtShip4Return= ()=> {
-    return builtShip4;
-  }; // Ships must be created inside gameboard, or the attacks wont work! position only would work if the ships were returned also.
+  // Ships must be created inside gameboard, or the attacks wont work! position only would work if the ships were returned also.
   // It's the scope magic.
 
   const allSunk= () => {
     if ( builtShip.lengthStatus===0 && builtShip1.lengthStatus===0 && builtShip2.lengthStatus===0 && builtShip3.lengthStatus===0 && builtShip4.lengthStatus===0 ) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
   };
 
 
-  return {getBoard, positionShip, spaceChecker, checkForShips, receiveAttack, allSunk, builtShipReturn, builtShip1Return, builtShip2Return, builtShip3Return, builtShip4Return};
+  return {board, getBoard, positionShip, spaceChecker, checkForShips, receiveAttack, allSunk};
 }
 ;
 

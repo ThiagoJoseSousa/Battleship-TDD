@@ -1,9 +1,13 @@
-const gameBoards= require('./gameBoard');
+const gameBoards= require('./gameBoard.js');
 
 const playerFactory= (newPlayer) => {
-  // const createBoard = gameBoards();
+  const createBoard = gameBoards();
   const player=newPlayer;
   let turnVariable=false;
+
+  const computerRemembers= [new Array(10), new Array(10), new Array(10), new Array(10),
+    new Array(10), new Array(10),
+    new Array(10), new Array(10), new Array(10), new Array(10)];
 
 
   const attack= (x, y, oppositePlayer)=> { // oppositePlayer is an object
@@ -12,38 +16,21 @@ const playerFactory= (newPlayer) => {
       if (validator===false) {
         return;
       }
+      oppositePlayer.turnVariable=true;
       turnVariable=true;
     } else if (player==='computer') {
-      const randomXIndex = computerRandom(XnumbersArray.length-1);
-      const randomXNumber = XnumbersArray[randomXIndex];
-      XnumbersArray.splice(randomXIndex, 1);
-
-      const randomYIndex = computerRandom(YnumbersArray.length-1);
-      const randomYNumber= computerRandom(randomYIndex.length-1);
-      YnumbersArray.splice(randomYIndex, 1);
-      oppositePlayer.createBoard.receiveAttack(randomXNumber, randomYNumber);
-
+      oppositePlayer.turnVariable=false;
       turnVariable=false;
+
+      const RandomX= Math.floor(Math.random()*computerRemembers.length-1);
+      const RandomY= Math.floor(Math.random()*computerRemembers[RandomX].length-1);
+      computerRemembers[RandomX].splice(RandomY, 1);
+      oppositePlayer.createBoard.receiveAttack(RandomX, RandomY);
     }
-    // oppositeBoard = oppositePlayer.createBoard.getBoard();
-    // console.log(oppositeBoard[randomX][randomY]);
   };
 
   // makes x/y variables random , and make a loop searching for '' elements
-  const computerRandom = (max) => {
-    return Math.floor(Math.random()*max);
-  };
-  // below is test
 
-  function createArrayOfNumbers(end) {
-    const myArray = [];
-    for (let i = 0; i <= end; i++) {
-      myArray.push(i); // creates an array with the index equal to  its inside number
-    }
-    return myArray;
-  }
-  const XnumbersArray = createArrayOfNumbers(9); // used for computer to not repeat Its plays
-  const YnumbersArray = createArrayOfNumbers(9);
 
   const returnX =() => {
     return XnumbersArray;
@@ -51,12 +38,6 @@ const playerFactory= (newPlayer) => {
   const returnY =() => {
     return YnumbersArray;
   };
-  const returnTurn = () => {
-    if (createBoard.allSunk()===true) {
-      turnVariable='Game has ended';
-    }
-  };
-  return {// createBoard,
-    attack, returnX, returnY, returnTurn};
+  return {createBoard, attack, returnX, returnY, turnVariable, player, computerRemembers};
 };
 module.exports=playerFactory;
