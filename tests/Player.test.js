@@ -33,3 +33,5 @@ test('if returnTurn==="Game has ended" function ends', ()=> {
   computer.turnVariable='Game has ended';
   expect(computer.turnVariable).toMatch('Game has ended');
 });
+
+

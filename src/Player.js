@@ -3,11 +3,10 @@ const gameBoards= require('./gameBoard.js');
 const playerFactory= (newPlayer) => {
   const createBoard = gameBoards();
   const player=newPlayer;
-  let turnVariable=false;
+  const turnVariable=false;
 
-  const computerRemembers= [new Array(10), new Array(10), new Array(10), new Array(10),
-    new Array(10), new Array(10),
-    new Array(10), new Array(10), new Array(10), new Array(10)];
+  // An array for the computer to remember what plays He's done before
+  const computerRemembers=[];
 
 
   const attack= (x, y, oppositePlayer)=> { // oppositePlayer is an object
@@ -16,20 +15,23 @@ const playerFactory= (newPlayer) => {
       if (validator===false) {
         return;
       }
-      oppositePlayer.turnVariable=true;
-      turnVariable=true;
+      return true;
     } else if (player==='computer') {
-      oppositePlayer.turnVariable=false;
-      turnVariable=false;
+      let randomX= Math.floor(Math.random() * 10);
+      let randomY= Math.floor(Math.random() * 10);
+      while (// returns true if the element is contained in array
+        computerRemembers.includes(`${randomX}${randomY}`)
+      ) {
+        randomX= Math.floor(Math.random() * 10);
+        randomY= Math.floor(Math.random() * 10);
+      }
+      computerRemembers.push(`${randomX}${randomY}`);
 
-      const RandomX= Math.floor(Math.random()*computerRemembers.length-1);
-      const RandomY= Math.floor(Math.random()*computerRemembers[RandomX].length-1);
-      computerRemembers[RandomX].splice(RandomY, 1);
-      oppositePlayer.createBoard.receiveAttack(RandomX, RandomY);
+
+      oppositePlayer.createBoard.receiveAttack(randomX, randomY);
     }
   };
-
-  // makes x/y variables random , and make a loop searching for '' elements
+  // makes x/y variables random , pushes x/y and if computerRemembers has this element, try again.
 
 
   const returnX =() => {
@@ -38,6 +40,11 @@ const playerFactory= (newPlayer) => {
   const returnY =() => {
     return YnumbersArray;
   };
-  return {createBoard, attack, returnX, returnY, turnVariable, player, computerRemembers};
+
+  const returnTurn =() =>{
+    return turnVariable;
+  };
+
+  return {createBoard, attack, returnX, returnY, turnVariable, returnTurn, player, computerRemembers};
 };
 module.exports=playerFactory;

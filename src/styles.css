@@ -10,16 +10,48 @@ body{
     width: 100%;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
+
 #computerDiv {
-    width: 500px;
-    height:500px;
+    height: fit-content;
+    width: fit-content;
+    background-color: rgb(9, 47, 117);
+    margin: auto;
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap:10px;
+}
+
+#playerDiv {
+    height: fit-content;
+    width: fit-content;
+    background-color: rgb(9, 47, 117);
+    margin: auto;
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap:10px;
+
 }
 
 .squares {
     height:30px;
     width:30px;
     background-color: rgb(24, 24, 24);
+    
 }
 
+.fogofwar {
+    background-color: darkblue;
+}
+
+
+.computerBoard{background: rgb(184, 21, 0);}
+
+.miss {background-color: grey;}
+.hit {background: red;}
+
+#computerDiv .squares{ cursor:pointer;}

@@ -117,8 +117,10 @@ const gameBoards = () => {
       case '':
         board[x][y]= 'miss';
         break;
+
       default: return false;
     }
+    return true;
   };
 
   const setShipPosition= (shipObject) => {
@@ -141,8 +143,9 @@ const gameBoards = () => {
   // Ships must be created inside gameboard, or the attacks wont work! position only would work if the ships were returned also.
   // It's the scope magic.
 
-  const allSunk= () => {
+  const allSunk= (getname) => {
     if ( builtShip.lengthStatus===0 && builtShip1.lengthStatus===0 && builtShip2.lengthStatus===0 && builtShip3.lengthStatus===0 && builtShip4.lengthStatus===0 ) {
+      alert(getname +' won, game has ended.');
       return false;
     } else {
       return true;
